@@ -1,0 +1,59 @@
+<!doctype html>
+   <html>
+     <head>
+<link rel="import" href="components/core-toolbar/core-toolbar.html">
+<link rel="import" href="components/core-icon-button/core-icon-button.html">
+<link rel="import" href="components/core-scroll-header-panel/core-scroll-header-panel.html">
+
+<link rel="import" href="components/paper-item/paper-item.html">
+
+<script src="components/platform/platform.js"></script>
+<link rel="import" href="components/font-roboto/roboto.html">
+
+  <style>
+
+/* background for toolbar when it is at its full size */
+core-scroll-header-panel::shadow #headerBg {
+  background-image: url(images/bg9.jpg);
+}
+
+/* background for toolbar when it is condensed */
+core-scroll-header-panel::shadow #condensedHeaderBg {
+  background-color: #f4b400;
+}
+
+core-toolbar {
+  color: #f1f1f1;
+  fill: #f1f1f1;
+  background-color: transparent;
+}
+
+.title {
+  -webkit-transform-origin: 0;
+  transform-origin: 0;
+  font-size: 40px;
+}     
+
+.content  {
+  padding: 10px 30px;
+}       
+  </style>
+</head>
+<body unresolved>
+      <core-scroll-header-panel condenses main>
+          <core-toolbar class="tall">            
+            <core-icon-button icon="arrow-back"></core-icon-button>
+            <div flex></div>
+            <core-icon-button icon="search"></core-icon-button>
+            <core-icon-button icon="more-vert"></core-icon-button>
+            <div class="bottom indent title">Title</div>              
+          </core-toolbar>            
+          <div class="content">  
+          <p>  
+              Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea, id minim maiestatis incorrupte duo. Dolorum verterem ad ius, his et nullam verterem. Eu alia debet usu, an doming tritani est. Vix ad ponderum petentium suavitate, eum eu tempor populo, graece sententiae constituam vim ex. Cu torquatos reprimique neglegentur nec, voluptua periculis has ut, at eos discere deleniti sensibus.
+           <p>
+              Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea, id minim maiestatis incorrupte duo. Dolorum verterem ad ius, his et nullam verterem. Eu alia debet usu, an doming tritani est. Vix ad ponderum petentium suavitate, eum eu tempor populo, graece sententiae constituam vim ex. Cu torquatos reprimique neglegentur nec, voluptua periculis has ut, at eos discere deleniti sensibus.                 
+          </div>
+        </core-scroll-header-panel>        
+</body>
+</html> 

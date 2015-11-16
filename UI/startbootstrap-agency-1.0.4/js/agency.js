@@ -27,14 +27,57 @@ $('.navbar-collapse ul li a').click(function() {
 
 // function for radio buttons in selecting genome
 $(function() {
+	
+	// iterates over each element in clickContainer
     $('.clickContainer input[type="radio"]').each(function(index) {
+		
+		// checks the current value of i each element
         console.log($(this));
-        $(this).attr('id', 'radio' + index);
-        var label = $('<label />', {'for': 'radio' + index}).html($(this).parent().html());
-        $(this).parent().empty().append(label);
+        
+		// sets the value of id to be radio + index(what is currently there)
+		$(this).attr('id', 'radio' + index);
+		
+		// returns the parent HTML value of clickContainer
+		// assigns that to an html element called <labelA>
+		// saves it all into a variable
+        var label = $('<labelA />', {'for': 'radio' + index}).html($(this).parent().html());
+        
+		// assigns the $label html tag to the parent of the clickContainer
+		$(this).parent().empty().append(label);
     });
-    $('label').click(function () {
-       $('label').removeClass('selected');
+	
+	
+	// calls the function defined above when THIS is clicked
+    $('labelA').click(function () {
+		
+		
+		// When label is clicked, it removes the class selected of the one with the "label" element
+       $('labelA').removeClass('selected');
+	   
+	   
+	   // when label is clicked, it adds the class selected
        $(this).addClass('selected');
     });        
+});
+
+
+
+
+// Function that selects all when clicked
+
+$('#ALL').click(function() {
+   // alert($(this).prop('checked'));
+    if ($(this).is(':checked') == true) {
+        $("input[name='rGroup']").prop('checked', true);
+    }else{
+        $("input[name='rGroup']").prop('checked', false);
+    }
+});
+
+
+
+// Function for reset button
+$('.ResetBTN').click(function(){
+	$("input[name='rGroup']").prop('checked', false);
+	$('labelA').removeClass('selected');
 });

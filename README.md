@@ -8,15 +8,13 @@ The purpose of this application is to retrieve GenBank files from the NCBI's FTP
 
 Upcoming iterations / updates will include:
 
-- Ability to send yourself an email with the data
+
 - Perhaps the ability to enter custom viral genbank files
 - Hosting on another website.
 
 
 
 
-# [Start Bootstrap](http://startbootstrap.com/) - [Agency](http://startbootstrap.com/template-overviews/agency/)
+### [Start Bootstrap](http://startbootstrap.com/) - [Agency](http://startbootstrap.com/template-overviews/agency/)
 
-Template used under Apache license.
-
-[Agency](http://startbootstrap.com/template-overviews/agency/) is a one page agency portfolio theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features several content sections, a responsive portfolio grid with hover effects, full page portfolio item modals, a responsive timeline, and a working PHP contact form.
+[Agency](http://startbootstrap.com/template-overviews/agency/) is a one page agency portfolio theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). Template used under Apache license.

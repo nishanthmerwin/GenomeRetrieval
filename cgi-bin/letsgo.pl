@@ -220,6 +220,8 @@ print $q->h1("$filename");
 
 
 if(Email::Valid->address($email)){
+	
+	
 	print regPrintGB(@elementInput);
 	
 	

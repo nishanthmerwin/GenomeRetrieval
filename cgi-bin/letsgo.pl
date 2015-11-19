@@ -1,4 +1,4 @@
-#!/Strawberry/perl/bin/perl.exe
+#!/usr/bin/perl
 
 use strict;
 use warnings;
@@ -6,7 +6,7 @@ use warnings;
 use CGI qw(:standard);
 use CGI::Carp qw(fatalsToBrowser);
 
-
+use Email::Valid;
 
 # NOTE: if LWP::Simple module is NOT available within your Perl distribution,
 #       install with:
@@ -24,6 +24,9 @@ my $q = new CGI;
 # Checks form input
 my $genomesInput = $q->param('question');
 my @elementInput = $q->param('rGroup');
+my $email = $q->param('email');
+
+
 
 # Converts elements input into appropriate text within a hash
 my @elementCode = qw/1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16/;
@@ -57,12 +60,13 @@ $/ = "\n";    # resets the default record back to newline
 
 sub regPrintGB(@){
 	
+	
+	my $output;
+	
 	if(@_[-1]==16){
-		print $page;
+		$output = $page;
 		exit;
 	}
-
-	
 	
 	
 	foreach my $element (@_){
@@ -77,7 +81,7 @@ sub regPrintGB(@){
 				$okToPrint = 1 if($_ =~ m/^$elementHash{$element}/);
 				$stopPrint = 1 if($_ =~ m/^$elementHash{($element+1)}/);
 				if($okToPrint  == 1 && $stopPrint == 0) {
-					print "$_\n";
+					$output .= "$_\n";
 				}
 				last if($stopPrint == 1);
 			}
@@ -88,7 +92,7 @@ sub regPrintGB(@){
 				$okToPrint = 1 if($_ =~ m/^$elementHash{$element}/);
 				$stopPrint = 1 if($_ =~ m/^$elementHash{($element+2)}/);
 				if($okToPrint  == 1 && $stopPrint == 0) {
-					print "$_\n";
+					$output .= "$_\n";
 				}
 				last if($stopPrint == 1);
 			}
@@ -99,7 +103,7 @@ sub regPrintGB(@){
 				$okToPrint = 1 if($_ =~ m/^$elementHash{$element}/);
 				$stopPrint = 1 if($_ =~ m/^COMMENT   /);
 				if($okToPrint  == 1 && $stopPrint == 0) {
-					print "$_\n";
+					$output .= "$_\n";
 				}
 				last if($stopPrint == 1);
 			}
@@ -111,7 +115,7 @@ sub regPrintGB(@){
 				$stopPrint = 1, $okToPrint = 0 if($_ =~ m/^$elementHash{($element+1)}/);
 				$okToPrint = 1, $stopPrint=0 if($_ =~ m/^$elementHash{$element}/);
 				if($okToPrint  == 1 && $stopPrint == 0) {
-					print "$_\n";
+					$output .= "$_\n";
 				}
 			}
 		}
@@ -134,7 +138,7 @@ sub regPrintGB(@){
 					}
 				}
 				if($okToPrint  == 1 && $stopPrint == 0) {
-					print "$_\n";
+					$output .= "$_\n";
 					$prevLinePrinted=1;
 				}
 				else{
@@ -159,7 +163,7 @@ sub regPrintGB(@){
 			foreach(@lines){
 				$okToPrint = 1 if($_ =~ m/^$elementHash{$element}/);
 				if($okToPrint  == 1){
-					print "$_\n";
+					$output .= "$_\n";
 				}
 			}
 		}
@@ -194,9 +198,11 @@ sub regPrintGB(@){
 					$thymine++ if($char eq "t");
 				}
 			}
-			print "BASE COUNT      $adenine A    $cytosine C     $guanine G     $thymine T\n";
+			$output .= "BASE COUNT      $adenine A    $cytosine C     $guanine G     $thymine T\n";
 		}
 	}
+	
+	return $output;
 }
 
 
@@ -210,9 +216,21 @@ print $q->start_html;
 
 print "<pre>";
 
-print $q->h1("Hello World");
+print $q->h1("$filename");
 
-regPrintGB(@elementInput);
+
+if(Email::Valid->address($email)){
+	print regPrintGB(@elementInput);
+	
+	
+	my $mailRef = "| /usr/bin/mail -s $filename " . $email;
+	open(MAIL,$mailRef);
+	print MAIL regPrintGB(@elementInput);
+	close(MAIL);
+}
+else{
+	print "Email address not valid: $email";
+}
 
 print "</pre>";
 
